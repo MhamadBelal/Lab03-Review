@@ -155,7 +155,137 @@ namespace Lab03Test
             // Assert
             Assert.Equal(0, result);
         }
-        
+
+
+        [Fact]
+        public void Challenge04_DifferentSizeArrays()
+        {
+            // Arrange
+            int[] numbers1 = { 1, 2, 3, 4, 5 };
+            int[] numbers2 = { 2, 3, 2, 4, 3, 1, 1, 5 };
+            int[] numbers3 = { 1 };
+
+            // Act
+            int result1 = Lab03Program.Program.Challenge04(numbers1);
+            int result2 = Lab03Program.Program.Challenge04(numbers2);
+            int result3 = Lab03Program.Program.Challenge04(numbers3);
+
+            // Assert
+            Assert.Equal(1, result1);
+            Assert.Equal(2, result2);
+            Assert.Equal(1, result3);
+        }
+
+        [Fact]
+        public void Challenge04_AllNumbersSameValue()
+        {
+            // Arrange
+            int[] numbers = { 5, 5, 5, 5, 5 };
+
+            // Act
+            int result = Lab03Program.Program.Challenge04(numbers);
+
+            // Assert
+            Assert.Equal(5, result);
+        }
+
+        [Fact]
+        public void Challenge04_NoDuplicatesExist()
+        {
+            // Arrange
+            int[] numbers = { 1, 2, 3, 4, 5 };
+
+            // Act
+            int result = Lab03Program.Program.Challenge04(numbers);
+
+            // Assert
+            Assert.Equal(1, result);
+        }
+
+        [Fact]
+        public void Challenge04_MultipleNumbersSameCount()
+        {
+            // Arrange
+            int[] numbers = { 3, 2, 1, 4, 5, 5, 4, 3, 2, 1 };
+
+            // Act
+            int result = Lab03Program.Program.Challenge04(numbers);
+
+            // Assert
+            Assert.Equal(3, result);
+        }
+
+        [Fact]
+        public void Challenge05_NegativeNumbers()
+        {
+            // Arrange
+            int[] numbers = { -10, -5, -20, -15, -30 };
+
+            // Act
+            int result = Lab03Program.Program.Challenge05(numbers);
+
+            // Assert
+            Assert.Equal(-5, result);
+        }
+
+        [Fact]
+        public void Challenge05_AllValuesSame()
+        {
+            // Arrange
+            int[] numbers = { 7, 7, 7, 7, 7, 7, 7 };
+
+            // Act
+            int result = Lab03Program.Program.Challenge05(numbers);
+
+            // Assert
+            Assert.Equal(7, result);
+        }
+
+        [Fact]
+        public void GetWordLengths_InputSentence_ReturnsCorrectArray()
+        {
+            // Arrange
+            string sentence = "This is a sentence about important things";
+            string[] expected = { "This: 4", "is: 2", "a: 1", "sentence: 8", "about: 5", "important: 9", "things: 6" };
+
+            // Act
+            string[] actual = Lab03Program.Program.Challenge09(sentence);
+
+            // Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void GetWordLengths_InputSentence_ReturnsArray()
+        {
+            // Arrange
+            string sentence = "Hello world";
+
+            // Act
+            string[] wordLengths = Lab03Program.Program.Challenge09(sentence);
+
+            // Assert
+            Assert.NotNull(wordLengths);
+            Assert.NotEmpty(wordLengths);
+        }
+
+        [Fact]
+        public void GetWordLengths_InputSentencesWithSymbols_ReturnsCorrectArray()
+        {
+            // Arrange
+            string sentence1 = "Hello, world!";
+            string sentence2 = "Programming is fun!!!";
+            string[] expected1 = { "Hello,: 6", "world!: 6" };
+            string[] expected2 = { "Programming: 11", "is: 2", "fun!!!: 6" };
+
+            // Act
+            string[] actual1 = Lab03Program.Program.Challenge09(sentence1);
+            string[] actual2 = Lab03Program.Program.Challenge09(sentence2);
+
+            // Assert
+            Assert.Equal(expected1, actual1);
+            Assert.Equal(expected2, actual2);
+        }
 
 
     }
