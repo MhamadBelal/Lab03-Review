@@ -41,12 +41,14 @@ namespace Lab03Program
              Challenge08(path, "file");
             */
 
-            
+
+            /*
             string sentence = "This is a sentence about important things";
             string[] wordLengths = Challenge09(sentence);
             Console.WriteLine(string.Join(", ", wordLengths));
-            
+            */
 
+            Console.ReadKey();
         }
 
         /*Challenge01: Write a program that asks the user for 3 numbers.
