@@ -11,8 +11,8 @@ return: 555
 
 ### Whiteboard Process
 
-![Lab03Challenege05(1)]()
-![Lab03Challenege05(2)]()
+![Lab03Challenege05(1)](./Lab03Challenege05(1).PNG)
+![Lab03Challenege05(2)](./Lab03Challenege05(2).PNG)
 
 ### Approach & Efficiency
 
