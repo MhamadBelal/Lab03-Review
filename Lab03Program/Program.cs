@@ -1,6 +1,7 @@
 ﻿using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Diagnostics.Metrics;
 using System;
+using System.ComponentModel;
 
 namespace Lab03Program
 {
@@ -12,7 +13,40 @@ namespace Lab03Program
 
             //Challenge02();
 
-            Challenge03();
+            //Challenge03();
+
+            /*
+             int[] input = { 1, 1, 2, 2, 3, 3, 3, 1, 1, 5, 5, 6, 7, 8, 2, 1, 1 };
+             Console.WriteLine(Challenge04(input)); 
+            */
+
+            /*
+            int[] input = { 22, 18, 99, 102, 1, 2 };
+             Console.WriteLine(Challenge05(input));
+            */
+
+            /*
+            string path = "../../../words.txt";
+            Challenge06(path);
+            */
+
+            /*
+            string path = "../../../words.txt";
+            Challenge07(path);
+            */
+
+
+            /*
+            string path = "../../../words.txt";
+             Challenge08(path, "file");
+            */
+
+            
+            string sentence = "This is a sentence about important things";
+            string[] wordLengths = Challenge09(sentence);
+            Console.WriteLine(string.Join(", ", wordLengths));
+            
+
         }
 
         /*Challenge01: Write a program that asks the user for 3 numbers.
@@ -183,6 +217,186 @@ namespace Lab03Program
             }
         }
 
+
+        /*
+        Challenge 4:Write a method that brings in an integer array and returns the number that appears the most times. 
+        If there are no duplicates, return the first number in the array. 
+        If more than one number show up the same amount of time, return the first found.
+        */
+        public static int Challenge04(int[] numbers)
+        {
+            Dictionary<int, int> countMap = new Dictionary<int, int>();
+
+            foreach (int number in numbers)
+            {
+                if (countMap.ContainsKey(number))
+                {
+                    countMap[number]++;
+                }
+                else
+                {
+                    countMap[number] = 1;
+                }
+            }
+
+            int maxCount = 0;
+            int mostFrequentNumber = numbers[0];
+
+            foreach (var entry in countMap)
+            {
+                if (entry.Value > maxCount)
+                {
+                    maxCount = entry.Value;
+                    mostFrequentNumber = entry.Key;
+                }
+            }
+
+            return mostFrequentNumber;
+        }
+
+
+        /*
+        Challenge 5: Write a method in that finds the maximum value in the array. 
+        The array is not sorted. You may not use .Sort() 
+        */
+        public static int Challenge05(int[] numbers)
+        {
+            if (numbers == null || numbers.Length == 0)
+            {
+                throw new ArgumentException("Input array is null or empty.");
+            }
+
+            int max = numbers[0];
+
+            for (int i = 1; i < numbers.Length; i++)
+            {
+                if (numbers[i] > max)
+                {
+                    max = numbers[i];
+                }
+            }
+
+            return max;
+        }
+
+
+        /*
+        Challenge 6: Write a method that asks the user to input a word,
+        and then saves that word into an external file named words.txt
+        Hint: Have a file already saved in the root of your directory with a couple of words already present in the file.
+        */
+        public static void Challenge06( string path)
+        {
+            Console.Write("Enter a word: ");
+            string word = Console.ReadLine();
+
+            using (StreamWriter writer = new StreamWriter(path, true))
+            {
+                // Write the word to the file
+                writer.WriteLine(word);
+            }
+            Console.WriteLine("Word appended to the file successfully.");
+        }
+
+        /*
+        Challenge 7: Write a method that reads the file in from Challenge 6, and outputs the contents to the console.
+        */
+        public static void Challenge07(string filePath)
+        {
+            try
+            {
+                string[] lines = File.ReadAllLines(filePath);
+
+                if (lines.Length > 0)
+                {
+                    Console.WriteLine("File contents:");
+
+                    foreach (string line in lines)
+                    {
+                        Console.WriteLine(line);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("The file is empty.");
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("The file does not exist.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred: " + ex.Message);
+            }
+        }
+
+
+        /*
+        Challenge 8: Write a method that reads in the file from Challenge 6. 
+        Removes one of the words, and rewrites it back to the file.
+        */
+        public static void Challenge08(string filePath, string wordToRemove)
+        {
+            // Read all lines from the file
+            string[] lines = File.ReadAllLines(filePath);
+
+            bool wordFound = false;
+
+            // Iterate through each line and remove the word if found
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string[] words = lines[i].Split(' ');
+
+                for (int j = 0; j < words.Length; j++)
+                {
+                    if (words[j] == wordToRemove)
+                    {
+                        // Remove the word from the line
+                        words[j] = string.Empty;
+                        wordFound = true;
+                        break;
+                    }
+                }
+
+                // Update the line with the modified words
+                lines[i] = string.Join(" ", words);
+            }
+
+            if (!wordFound)
+            {
+                Console.WriteLine("Word not found in the file.");
+                return;
+            }
+
+            // Append the word to the end of the lines
+            string[] updatedLines = new string[lines.Length + 1];
+            Array.Copy(lines, updatedLines, lines.Length);
+            updatedLines[updatedLines.Length - 1] = wordToRemove;
+
+            // Write the updated lines back to the file
+            File.WriteAllLines(filePath, updatedLines);
+
+            Console.WriteLine("Word removed and appended back to the file successfully.");
+        }
+
+
+        public static string[] Challenge09(string sentence)
+        {
+            string[] words = sentence.Split(' ');
+
+            string[] wordLengths = new string[words.Length];
+
+            for (int i = 0; i < words.Length; i++)
+            {
+                string word = words[i];
+                int length = word.Length;
+
+                wordLengths[i] = $"{word}: {length}";
+            }
+
+            return wordLengths;
+        }
 
     }
 }
